@@ -10,7 +10,7 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "reset": "npm run rollback && npm run migrate && npm run seed",
-    "cleanup": "knex seed:run --specific=01-cleanup",
+    "cleanup": "knex seed:run --specific=01-cleanup.js",
     "seed": "knex seed:run"
   },
   "repository": {
