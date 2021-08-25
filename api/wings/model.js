@@ -1,18 +1,20 @@
-// const get = () => {
-//     return db('wings')
-//   }
+const db = require('../../data/db-config')
 
-// const getById = (wing_id) => {
-//     return db('wings').where('wing_id', wing_id).first()
-//   }
+const get = () => {
+    return db('wings')
+  }
 
-// const create = (wing) => {
-//     return db('wings').insert(wing)
-//     .then(([id]) => getById(id))
-//   }
+const getById = (wing_id) => {
+    return db('wings').where('wing_id', wing_id)
+  }
 
-// module.exports = {
-//     get,
-//     getById,
-//     create
-//   }
+const create = (wing) => {
+    return db('wings').insert(wing)
+    .then(([id]) => getById(id))
+  }
+
+module.exports = {
+    get,
+    getById,
+    create
+  }
