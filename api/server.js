@@ -9,7 +9,7 @@ server.use(cors())
 
 server.use('/api/wings', wingRouter);
 
-server.get('api/wings', (req, res) => {
+server.get('/api/wings', (req, res) => {
     res.json({ message: 'api up' })
 })
 
