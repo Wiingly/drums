@@ -6,6 +6,18 @@ const Wing = require('./model')
 //     validateWing,
 //   } = require('../middleware/middleware')
 
+router.use('*', (req, res) => { 
+  res.json({ api: 'up' })
+})
+
+router.use((err, req, res, next) => { //eslint-disable-line
+  res.status(500).json({
+    customMessage: 'you deserve only tyson wings boiled in water for causing this issue',
+    message: err.message,
+    stack: err.stack
+  })
+})
+
 router.get('/', async (req, res, next) => {
     try {
         const wings = await Wing.get()
