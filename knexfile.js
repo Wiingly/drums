@@ -12,7 +12,9 @@ const sharedConfig = {
 module.exports = {
   development: {
     ...sharedConfig,
-    connection: { filename: './data/wings.db3' },
+    connection: { 
+      filename: './data/wings.db3' 
+    },
   },
   production: {
     client: "sqlite3",
