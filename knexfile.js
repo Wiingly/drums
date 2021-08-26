@@ -1,6 +1,5 @@
 require('dotenv').config()
 
-// const sqlite3 = require('sqlite3')
 
 const sharedConfig = {
   client: 'sqlite3',
@@ -15,6 +14,15 @@ module.exports = {
     ...sharedConfig,
     connection: { filename: './data/wings.db3' },
   },
-  production: {}
+  production: {
+    client: "sqlite3",
+    connection: process.env.DATABASE_URL,
+    migrations: {
+      directory: './data/migrations',
+    },
+    seeds: {
+      directory: './data/seeds',
+    },
+    useNullAsDefault: true,
+  },
 };
-
