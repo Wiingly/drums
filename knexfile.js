@@ -1,3 +1,7 @@
+require('dotenv').config()
+
+// const sqlite3 = require('sqlite3')
+
 const sharedConfig = {
   client: 'sqlite3',
   useNullAsDefault: true,

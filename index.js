@@ -1,20 +1,20 @@
 require('dotenv').config()
+
 const express = require('express');
-const cors = require('cors')
-const wingRouter = require('./api/wings/router');
+const path = require('path');
 
-const server = express();
-const PORT = process.env.PORT || 5000;
+const server = require('./api/server');
 
-server.use(express.json());
-server.use(cors())
+const port = process.env.PORT;
 
-server.use('/api/wings', wingRouter);
+server.use(express.static(path.join(__dirname, 'client/dist')))
 
-server.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}...`);
-  });
+server.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+})
 
-module.exports = server;
+server.listen(port, () => {
+    console.log(`Server listening on port: ${port}`);
+});
 
 
