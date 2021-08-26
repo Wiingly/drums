@@ -2,10 +2,6 @@ const express = require('express')
 const router = express.Router()
 const Wing = require('./model')
 
-// const {
-//     validateWing,
-//   } = require('../middleware/middleware')
-
 router.get('/', async (req, res, next) => {
     try {
         const wings = await Wing.get()
