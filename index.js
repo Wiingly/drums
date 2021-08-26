@@ -1,20 +1,10 @@
-require('dotenv').config()
-
-const express = require('express');
-const path = require('path');
+require('dotenv').config();
 
 const server = require('./api/server');
 
-const port = process.env.PORT;
+const PORT = process.env.PORT;
 
-server.use(express.static(path.join(__dirname, 'client/dist')))
+server.get('/', (req, res) => res.send(`Welcome to the Wingly API on ${PORT}`));
 
-server.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
-})
-
-server.listen(port, () => {
-    console.log(`Server listening on port: ${port}`);
-});
-
+server.listen(PORT, () => console.log(`listening on port:${PORT}`));
 
