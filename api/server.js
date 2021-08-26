@@ -9,8 +9,12 @@ server.use(cors())
 
 server.use('/api/wings', wingRouter);
 
+server.get('/api/wings', (req, res) => { 
+    res.json({ message: '<h1>i hate heroku</h1>' })
+})
+
 server.use('*', (req, res) => { 
-    res.json({ api: 'up' })
+    res.send('<h1>i hate heroku</h1>')
 })
 
 module.exports = server;
