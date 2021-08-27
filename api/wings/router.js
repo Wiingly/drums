@@ -1,16 +1,21 @@
-const express = require('express')
-const router = express.Router()
-const Wing = require('./model')
+const router = require("express").Router();
+const { restrict } = require("../middleware");
+// const { validateWing } = require("../middleware/validation");
+const Wing = require("./model");
 
-router.get('/', async (req, res, next) => {
-    try {
-        const wings = await Wing.get()
-        const newWings = wings.map(w => ({...w}))
-        res.json(newWings)
-    } catch (err) {
-        next(err)
-    }
-})
+router.use(restrict);
+
+// const { checkWingExists } = require("../middleware/check-wing-exists");
+//////////Wing//////////
+
+router.get("/", (req, res, next) => {
+  const user_id = req.decodedJwt.sub;
+  Wing.getById(user_id)
+    .then((recipes) => {
+      res.status(200).json(recipes);
+    })
+    .catch(next);
+});
 
 router.get('/:wing_id', async (req, res, next) => { //eslint-disable-line
   Wing.getById(req.params.wing_id)

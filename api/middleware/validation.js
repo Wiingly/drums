@@ -1,18 +1,18 @@
 const {
-    recipe: recipeSchema,
+    wing: wingSchema,
     registration: registrationSchema,
     login: loginSchema,
   } = require("../../utils/validation-schemas");
   
-  exports.validateRecipe = async (req, _res, next) => {
+  exports.validateWing = async (req, _res, next) => {
     if (!req.body) {
-      return next({ status: 400, message: "cannot add empty recipe" });
+      return next({ status: 400, message: "cannot add empty wing" });
     }
     try {
-      const validRecipe = await recipeSchema.validate(req.body, {
+      const validWing = await wingSchema.validate(req.body, {
         stripUnknown: true,
       });
-      req.body = validRecipe;
+      req.body = validWing;
       next();
     } catch (err) {
       next({ status: 400, message: err.message });

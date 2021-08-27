@@ -4,9 +4,11 @@ const get = () => {
     return db('wings')
   }
 
-const getById = (wing_id) => {
-    return db('wings').where('wing_id', wing_id)
-  }
+function getById(id) {
+    return db("wings")
+        .where("user_id", id)
+        .select("flavor", "amount", "location");
+}
 
 const create = (wing) => {
     return db('wings').insert(wing)
