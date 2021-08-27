@@ -1,12 +1,22 @@
 const wings = [
-    { flavor: "24 strong",
+    { 
+      flavor: "24 strong",
       amount: 12,
-      location: "Big Shot Bobs"
+      location: "Big Shot Bobs",
+      user_id: 1,
     },
-    { flavor: "cash club",
+    { 
+      flavor: "cash club",
       amount: 12,
-      location: "Big Shot Bobs"
-    }
+      location: "Big Shot Bobs",
+      user_id: 1,
+    },
+    { 
+      flavor: "bbq",
+      amount: 12,
+      location: "bdubs",
+      user_id: 2,
+    },
 ]
 
 exports.seed = async function(knex) {
