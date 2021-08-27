@@ -1,14 +1,13 @@
-const users = [
-    { 
-        username: "n",
-        password: "wing"
-    },
-    { 
-        username: "bob",
-        password: "bobo"
-    },
-]
+const bcrypt = require('bcrypt')
+const { BCRYPT_ROUNDS, SEED_PASSWORD } = require('../../utils/env-fallbacks')
 
-exports.seed = async function(knex) {
-    await knex('users').insert(users)
-}
+
+
+exports.seed =   function (knex) {
+  const password = bcrypt.hashSync(SEED_PASSWORD, BCRYPT_ROUNDS)
+
+    return knex('users').insert([
+      {username: 'n', password: password},
+      {username: 'p', password: password},
+    ]);
+};

@@ -1,30 +1,59 @@
-const router = require('express').Router();
-const bcrypt = require('bcryptjs');
-const restricted = require('../middleware/restricted');
-const Users = require('./model');
+const router = require("express").Router();
+const Users = require('./model')
 
-router.get('/', restricted, (req, res, next) => {
-    Users.findByFilter({user_id: req.decodedToken.user_id})
-        .then(filteredUser => {
-            res.status(200).json(filteredUser);
-        })
-        .catch(next);
-});
+// function checkId(req, res, next) {
+//   next()
+// }
 
-router.put('/', async (req, res, next) => {
-    if (req.body.password) {
-        let {password} = req.body;
+// function checkPayload(req, res, next) {
+//   next()
+// }
 
-        //const rounds = process.env.BCRYPT_ROUNDS || 8;
-        const hash = await bcrypt.hashSync(password, 4);
-    
-        req.body.password = hash;
-    }
-    Users.update(req.decodedToken.user_id, req.body)
-    .then(() => {
-        res.status(201).json({message: `Success`});
+router.get('/', (req,res,next) => {
+    Users.getAll()
+    .then(users => {
+        res.json(users)
     })
-    .catch(next);
-});
+    .catch(next)
+})
+
+router.get('/:user_id',(req, res, next) => {
+    const { user_id } = req.params
+  
+    Users.getById(user_id)
+      .then(user => {
+        res.json(user)
+      })
+      .catch(next)
+  })
+
+  router.post('/', (req, res, next) => {
+    Users.add(req.body)
+      .then(user => {
+        res.status(201).json(user)
+      })
+      .catch(next)
+  })
+  
+  // router.get('/',(req, res, next) => {
+    
+
+  router.put("/:user_id", async (req, res, next) => {
+    try {
+        const data = await Users.update(req.params.user_id, req.body)
+        res.json(data)
+      } catch (err) {
+        next(err)
+      }
+    
+  });
+
+router.use((err, req, res, next) => { // eslint-disable-line
+    res.status(err.status || 500).json({
+      message: err.message,
+      stack: err.stack,
+      customMessage: 'Something went wrong inside the users router'
+    });
+  });
 
 module.exports = router;

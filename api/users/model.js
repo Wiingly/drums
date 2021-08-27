@@ -1,26 +1,35 @@
-const db = require('../../data/db-config')
+const db = require("../../data/db-config");
 
-function findByFilter(filter) {
-    return db('users')
-        .select('user_id', 'username', 'password')
-        .where(filter)
-        .first();
-}
+const getAll = () => db("users"); //admin only
 
-function update(id, changes) {
-    return db('users')
-        .select('username')
-        .where('user_id', id)
-        .update(changes);
-}
+const getById = (id) => db("users").where("user_id", id).first(); //matching user token required
 
-async function add(user) {
-    const [user_id] = await db('users').insert(user, 'user_id');
-    return findByFilter({ user_id });
-}
+const getBy = (userProp) => db("users").where(userProp);
+
+// function getBy(){
+//   return db('users').select('username')
+// }
+
+const update = async (id, updatedUser) => {
+  const [newUser] = await db("users")
+  .where("user_id", id)
+  .update(updatedUser)
+  .returning("*");
+  return newUser;
+};
+
+
+//matching user token required
+
+const add = async (user) => {
+  const [newUser] = await db("users").insert(user).returning("*");
+  return newUser;
+}; //via registration
 
 module.exports = {
-    findByFilter,
-    update,
-    add
+  getAll,
+  getById,
+  add,
+  getBy,
+  update,
 };
