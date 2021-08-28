@@ -1,45 +1,62 @@
 const router = require("express").Router();
-const { restrict } = require("../middleware");
-// const { validateWing } = require("../middleware/validation");
-const Wing = require("./model");
+const restricted = require('../middleware/restricted.js');
+const UserPlants = require("./model");
+// const { checkNewUserPlantPayload, checkUserPlantExists } = require('../middleware/middleware.js');
 
-router.use(restrict);
 
-// const { checkWingExists } = require("../middleware/check-wing-exists");
-//////////Wing//////////
-
-router.get("/", (req, res, next) => {
-  const user_id = req.decodedJwt.sub;
-  Wing.getById(user_id)
-    .then((recipes) => {
-      res.status(200).json(recipes);
-    })
-    .catch(next);
+// [GET] - /api/wings
+router.get("/", restricted, (req, res, next) => {
+    const { user_id } = req.decodedToken;
+    UserPlants.findById(user_id)
+        .then(wings => res.status(200).json(wings))
+        .catch(next);
 });
 
-router.get('/:wing_id', async (req, res, next) => { //eslint-disable-line
-  Wing.getById(req.params.wing_id)
-    .then(w => {
-      res.status(200).json(w)
-    })
-})
 
-router.post('/', // validateWing, 
-(req, res, next) => {
-    const wings = req.body
-    Wing.create(wings)
-      .then(newWings => {
-        res.status(201).json({...newWings})
-      })
-      .catch(next)
-  });
+// // [POST] - /api/wings
+// router.post('/', checkNewUserPlantPayload, restricted, async (req, res, next) => {
+//     const newPlant = { ...req.body, user_id: req.decodedToken.user_id };
+//     try {
+//         const plant = await UserPlants.addPlant(newPlant);
+//         res.status(200).json(plant);
+//     } catch (err) {
+//         next(err);
+//     }
+// });
 
-router.use((err, req, res, next) => { //eslint-disable-line
-  res.status(500).json({
-    customMessage: 'you deserve only tyson wings boiled in water for causing this issue',
-    message: err.message,
-    stack: err.stack
-  })
-})
+// // [PUT] - /api/wings
+// router.put('/', checkNewUserPlantPayload, restricted, checkUserPlantExists, async (req, res, next) => {
+//     const user_plant_id = req.body.user_plant_id;
+//     const plantInfo = {
+//         user_id: req.decodedToken.user_id,
+//         plant_nickname: req.body.plant_nickname,
+//         water_day: req.body.water_day,
+//         notes: req.body.notes,
+//         plant_location: req.body.plant_location,
+//         species_id: req.body.species_id
+//     };
 
-module.exports = router
+
+//     try {
+//         const updatedPlant = await UserPlants.updatePlant(user_plant_id, plantInfo);
+//         res.status(200).json(updatedPlant);
+
+//     } catch (err) {
+//         next(err);
+//     }
+// });
+
+// // [DELETE] - /api/wings
+
+// router.delete('/', restricted, async (req, res, next) => {
+//     const { user_plant_id } = req.body;
+//     try {
+//         await UserPlants.del(user_plant_id);
+//         res.status(200).json({ message: 'plant deleted' });
+//     } catch (err) {
+//         next(err);
+//     }
+// });
+
+
+module.exports = router;

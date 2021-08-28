@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-
+const helmet = require('helmet');
 const server = express()
 
 const wingRouter = require('./wings/router');
@@ -8,7 +8,8 @@ const usersRouter = require('./users/router');
 const authRouter = require('./auth/auth-router.js');
 
 server.use(express.json());
-server.use(cors())
+server.use(helmet());
+server.use(cors());
 
 server.use('/api/wings', wingRouter);
 server.use('/api/users', usersRouter);

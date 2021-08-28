@@ -1,23 +1,7 @@
 const router = require("express").Router();
 const Users = require('./model')
 
-// function checkId(req, res, next) {
-//   next()
-// }
-
-// function checkPayload(req, res, next) {
-//   next()
-// }
-
-router.get('/', (req,res,next) => {
-    Users.getAll()
-    .then(users => {
-        res.json(users)
-    })
-    .catch(next)
-})
-
-router.get('/:user_id',(req, res, next) => {
+router.get('/',(req, res, next) => {
     const { user_id } = req.params
   
     Users.getById(user_id)
