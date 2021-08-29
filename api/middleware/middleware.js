@@ -57,26 +57,25 @@ const formatNewUserPayload = (req, res, next) => {
     next();
 };
 
-// const checkNewUserPlantPayload = (req, res, next) => {
-//     const { plant_nickname, water_day, species_id } = req.body;
-//     if (!species_id) {
-//         next({status: 400, message: "IDK what you're talking about. What plant species did you want to add again?"});
-//     } else if (!plant_nickname) {
-//         next({ status: 400, message: 'Please provide a nickname for you lil green friend' });
-//     } else if (plant_nickname.length > 255) {
-//         next({ status: 400, message: 'Sorry the International Plant Union has restricted plant names to 255 characters or less' });
-//     } else if (!water_day) {
-//         next({ status: 400, message: 'Please provide a day to begin watering your plant' });
-//     } else if (typeof water_day !== 'number') {
-//         next({ status: 400, message: 'Sorry water days only identify as numbers' });
-//     } else if (water_day < 1 || water_day > 7) {
-//         next({status: 400, message: "What are you making up days now? Please enter a water day between 1-7"});
-//     } else {
-//         req.body.plant_nickname = plant_nickname.trim();
-//         req.body.water_day = water_day;
-//         next();
-//     }
-// };
+const checkNewWingPayload = (req, res, next) => {
+    const { flavor, amount, location } = req.body;
+    if (!location) {
+        next({status: 400, message: "man i just know you ate them somewhere"});
+    } else if (!flavor) {
+        next({ status: 400, message: 'even if you`re a maniac and ate them plain can you at least put that' });
+    } else if (flavor.length > 255) {
+        next({ status: 400, message: 'bruh cmon ik theres no wing flavor that long' });
+    } else if (!amount) {
+        next({ status: 400, message: 'you ate zero wings????' });
+    } else if (typeof amount !== 'number') {
+        next({ status: 400, message: 'numbers only you little typing dork' });
+    } else {
+        req.body.flavor = flavor.trim();
+        req.body.location = location.trim();
+        req.body.amount = amount;
+        next();
+    }
+};
 
 const checkUserWingExists = async (req, res, next) => {
     const { wing_id } = req.body;
@@ -101,6 +100,6 @@ module.exports = {
     checkUsernameExists,
     checkNewUserPayload,
     formatNewUserPayload,
-    // checkNewUserWingPayload,
+    checkNewWingPayload,
     checkUserWingExists
 };

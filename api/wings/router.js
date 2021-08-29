@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const restricted = require('../middleware/restricted.js');
 const Wings = require("./model");
-// const { checkNewUserPlantPayload, checkUserPlantExists } = require('../middleware/middleware.js');
+const { checkNewWingPayload,  } = require('../middleware/middleware.js');
 
 
 // [GET] - /api/wings
@@ -20,16 +20,16 @@ router.get("/total", restricted, (req, res, next) => {
 });
 
 
-// // [POST] - /api/wings
-// router.post('/', checkNewUserPlantPayload, restricted, async (req, res, next) => {
-//     const newPlant = { ...req.body, user_id: req.decodedToken.user_id };
-//     try {
-//         const plant = await UserPlants.addPlant(newPlant);
-//         res.status(200).json(plant);
-//     } catch (err) {
-//         next(err);
-//     }
-// });
+// [POST] - /api/wings
+router.post('/', checkNewWingPayload, restricted, async (req, res, next) => {
+    const newWing = { ...req.body, user_id: req.decodedToken.user_id };
+    try {
+        const wing = await Wings.addWing(newWing);
+        res.status(200).json(wing);
+    } catch (err) {
+        next(err);
+    }
+});
 
 // // [PUT] - /api/wings
 // router.put('/', checkNewUserPlantPayload, restricted, checkUserPlantExists, async (req, res, next) => {

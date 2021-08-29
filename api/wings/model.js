@@ -22,12 +22,12 @@ function totalWings(id) {
 //         .first();
 // }
 
-// async function addPlant(newPlant){
-//     const [user_plant_id] = await db('user_plants')
-//         .insert(newPlant, "user_plant_id");
-//     // finds plant by plant id
-//     return findUserWingsByWingsID(user_plant_id);
-// }
+async function addWing(newWing){
+    const [wing_id] = await db('wings')
+        .insert(newWing, "wing_id");
+    // finds plant by plant id
+    return findById(wing_id);
+}
 
 
 // async function updatePlant(user_plant_id,updatedPlant){
@@ -46,7 +46,7 @@ function totalWings(id) {
 module.exports = {
     findById,
     totalWings,
-    // addPlant,
+    addWing,
     // updatePlant,
     // del,
     // findUserWingsByWingsID
