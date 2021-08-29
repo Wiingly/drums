@@ -9,7 +9,6 @@ function findById(id) {
 function totalWings(id) {
     return db("wings")
         .where("user_id", id)
-        .select("amount")
         .sum("amount")
         .as("total")
 }
