@@ -6,6 +6,13 @@ function findById(id) {
         .select("wing_id", "flavor", "location", "amount");
 }
 
+function totalWings(id) {
+    return db("wings")
+        .where("user_id", id)
+        .select("amount")
+        .sum("amount")
+}
+
 // function findUserWingsByWingsID(user_plant_id){
 //     return db("user_plants as up")
 //         .join("species as sp", "up.species_id", "sp.species_id")
@@ -38,6 +45,7 @@ function findById(id) {
 
 module.exports = {
     findById,
+    totalWings,
     // addPlant,
     // updatePlant,
     // del,

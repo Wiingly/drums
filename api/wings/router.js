@@ -1,13 +1,20 @@
 const router = require("express").Router();
 const restricted = require('../middleware/restricted.js');
-const UserPlants = require("./model");
+const Wings = require("./model");
 // const { checkNewUserPlantPayload, checkUserPlantExists } = require('../middleware/middleware.js');
 
 
 // [GET] - /api/wings
 router.get("/", restricted, (req, res, next) => {
     const { user_id } = req.decodedToken;
-    UserPlants.findById(user_id)
+    Wings.findById(user_id)
+        .then(wings => res.status(200).json(wings))
+        .catch(next);
+});
+
+router.get("/total", restricted, (req, res, next) => {
+    const { user_id } = req.decodedToken;
+    Wings.totalWings(user_id)
         .then(wings => res.status(200).json(wings))
         .catch(next);
 });
