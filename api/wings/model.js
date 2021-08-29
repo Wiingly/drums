@@ -10,6 +10,7 @@ function totalWings(id) {
     return db("wings")
         .where("user_id", id)
         .sum("amount")
+        .groupBy("amount")
         .as("total")
 }
 
