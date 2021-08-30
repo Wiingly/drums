@@ -13,6 +13,7 @@ function update(id, changes) {
         .where('user_id', id)
         .update(changes);
 }
+
 async function add(user) {
     const [user_id] = await db("users").insert(user, "user_id");
     return findByFilter({ user_id });

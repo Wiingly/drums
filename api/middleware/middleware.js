@@ -39,7 +39,7 @@ const checkUsernameExists = async (req, res, next) => {
 const checkNewUserPayload = (req, res, next) => {
     const { username, password } = req.body;
     switch (true) {
-        case (!username || !username.match(/^\S+@\S+\.\S+$/)):
+        case (!username):
             next({ message: "Please provide a valid username.", status: 400 });
             break;
         case (!password || password.length < 1):

@@ -7,8 +7,6 @@ const { jwtSecret } = require('../config/secrets.js');
 
 router.post('/register', mw.checkNewUserPayload, mw.formatNewUserPayload, mw.checkUsernameUnique, async (req, res, next) => {
     let user = req.body;
-
-    //const rounds = process.env.BCRYPT_ROUNDS || 8;
     const hash = await bcrypt.hashSync(user.password, 8);
 
     user.password = hash;
