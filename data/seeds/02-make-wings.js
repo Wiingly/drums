@@ -17,12 +17,6 @@ const wings = [
       location: "bdubs",
       user_id: 2,
     },
-    { 
-      flavor: "talk of beaver falls",
-      amount: 12,
-      location: "Big Shot Bobs",
-      user_id: 1,
-    },
 ]
 
 exports.seed = async function(knex) {
