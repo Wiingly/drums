@@ -5,7 +5,8 @@ const server = express()
 
 const wingRouter = require('./wings/router');
 const usersRouter = require('./users/router');
-const authRouter = require('./auth/auth-router.js');
+const authRouter = require('./auth/auth-router');
+const followRouter = require('./follow/router');
 
 server.use(express.json());
 server.use(helmet());
@@ -14,6 +15,7 @@ server.use(cors());
 server.use('/api/wings', wingRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/auth', authRouter);
+server.use('/api/follow', followRouter);
 
 
 server.use('/', (req, res, next) => { // eslint-disable-line

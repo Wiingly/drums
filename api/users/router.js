@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Users = require('./model')
 
-router.get('/',(req, res, next) => {
+  router.get('/',(req, res, next) => {
     const { user_id } = req.params
   
     Users.getById(user_id)
@@ -18,8 +18,6 @@ router.get('/',(req, res, next) => {
       })
       .catch(next)
   })
-  
-  // router.get('/',(req, res, next) => {
     
 
   router.put("/:user_id", async (req, res, next) => {
@@ -32,7 +30,7 @@ router.get('/',(req, res, next) => {
     
   });
 
-router.use((err, req, res, next) => { // eslint-disable-line
+  router.use((err, req, res, next) => { // eslint-disable-line
     res.status(err.status || 500).json({
       message: err.message,
       stack: err.stack,

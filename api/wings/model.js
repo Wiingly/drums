@@ -36,7 +36,5 @@ module.exports = {
     findById,
     totalWings,
     addWing,
-    // updatePlant,
-    // del,
     // findUserWingsByWingsID
 };
