@@ -32,21 +32,18 @@ router.post('/', checkNewWingPayload, restricted, async (req, res, next) => {
 });
 
 // // [PUT] - /api/wings
-// router.put('/', checkNewUserPlantPayload, restricted, checkUserPlantExists, async (req, res, next) => {
-//     const user_plant_id = req.body.user_plant_id;
-//     const plantInfo = {
+// router.put('/', checkNewUserWingPayload, restricted, checkUserWingExists, async (req, res, next) => {
+//     const wing_id = req.body.wing_id;
+//     const wingInfo = {
 //         user_id: req.decodedToken.user_id,
-//         plant_nickname: req.body.plant_nickname,
-//         water_day: req.body.water_day,
-//         notes: req.body.notes,
-//         plant_location: req.body.plant_location,
-//         species_id: req.body.species_id
+//         flavor: req.body.flavor,
+//         location: req.body.location,
 //     };
 
 
 //     try {
-//         const updatedPlant = await UserPlants.updatePlant(user_plant_id, plantInfo);
-//         res.status(200).json(updatedPlant);
+//         const updatedWing = await Wings.updateWing(wing_id, wingInfo);
+//         res.status(200).json(updatedWing);
 
 //     } catch (err) {
 //         next(err);
@@ -56,10 +53,10 @@ router.post('/', checkNewWingPayload, restricted, async (req, res, next) => {
 // // [DELETE] - /api/wings
 
 // router.delete('/', restricted, async (req, res, next) => {
-//     const { user_plant_id } = req.body;
+//     const { wing_id } = req.body;
 //     try {
-//         await UserPlants.del(user_plant_id);
-//         res.status(200).json({ message: 'plant deleted' });
+//         await Wings.del(wing_id);
+//         res.status(200).json({ message: 'wing deleted' });
 //     } catch (err) {
 //         next(err);
 //     }
