@@ -7,6 +7,12 @@ function findByFilter(filter) {
         .first();
 }
 
+function findUsername(u) {
+    return db('users')
+        .select('username')
+        .where('user_id', u)
+}
+
 function update(id, changes) {
     return db('users')
         .select('username')
@@ -21,6 +27,7 @@ async function add(user) {
 
 module.exports = {
     findByFilter,
+    findUsername,
     update,
     add
 };
