@@ -1,14 +1,10 @@
 const router = require("express").Router();
 const Users = require('./model')
+const restricted = require('../middleware/restricted.js');
 
-  router.get('/', (req, res, next) => {
-    const { user_id } = req.params
-  
-    Users.getById(user_id)
-      .then(user => {
-        res.json(user)
-      })
-      .catch(next)
+  router.get('/', restricted, (req, res) => {
+    const { user_id } = req.decodedToken;
+    res.json(user_id)
   })
 
   router.post('/', (req, res, next) => {
