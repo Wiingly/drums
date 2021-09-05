@@ -13,14 +13,14 @@ function totalWings(id) {
 }
 
 function findUsername(id) {
-    return db('users')
-        .where('user_id', id)
-        .select('username')
+    return db("users")
+        .where("user_id", id)
+        .select("username")
 }
 
 async function Follow(newFriend){
     const [friend_id] = await db('followers')
-        .insert(newFriend, "user2_id");
+        .insert(newFriend, "user1_id");
     return findById(friend_id);
 }
 
