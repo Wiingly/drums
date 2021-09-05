@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Users = require('./model')
 
-  router.get('/',(req, res, next) => {
+  router.get('/', (req, res, next) => {
     const { user_id } = req.params
   
     Users.getById(user_id)

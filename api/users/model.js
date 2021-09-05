@@ -13,6 +13,11 @@ function findUsername(u) {
         .where('user_id', u)
 }
 
+function findID(u) {
+    return db('users')
+        .select('user_id', u)
+}
+
 function update(id, changes) {
     return db('users')
         .select('username')
@@ -28,6 +33,7 @@ async function add(user) {
 module.exports = {
     findByFilter,
     findUsername,
+    findID,
     update,
     add
 };
