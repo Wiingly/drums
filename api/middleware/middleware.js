@@ -1,5 +1,6 @@
 const { findByFilter } = require("../users/model");
 const { findUserWingsByWingsID } = require('../wings/model');
+const { findFollower } = require('../follow/model')
 
 const checkLoginCredentials = (req, res, next) => {
     const { username, password } = req.body;
@@ -94,6 +95,27 @@ const checkUserWingExists = async (req, res, next) => {
     }
 };
 
+const OnlyFollowOnce = async (req, res, next) => {
+    const { user2_id } = req.body;
+    console.log(req.body)
+    const follow = await findFollower(user2_id);
+    const u = follow.map(u => {
+        return u.user1_id
+    })
+    const user = req.decodedToken.user_id
+    console.log(u)
+    console.log(req.decodedToken.user_id)
+    const newU = u.filter(n => {
+        return n == user
+    })
+    console.log(newU)
+    if (newU[0] == user) {
+        next({ message: "Already Following", status: 401 });
+    } else {
+        next();
+    }
+}
+
 module.exports = {
     checkLoginCredentials,
     checkUsernameUnique,
@@ -101,5 +123,6 @@ module.exports = {
     checkNewUserPayload,
     formatNewUserPayload,
     checkNewWingPayload,
-    checkUserWingExists
+    checkUserWingExists,
+    OnlyFollowOnce,
 };

@@ -24,11 +24,10 @@ async function Follow(newFriend){
     return findById(friend_id);
 }
 
-async function findFriend(id) {
-    return db('followers')
-            .where()
-            .select("user1_id", id)
-            .then()
+function findFollower(id) {
+    return db("followers")
+        .where("user2_id", id)
+        .select("user1_id")
 }
 
 module.exports = {
@@ -36,5 +35,5 @@ module.exports = {
     Follow,
     totalWings,
     findUsername,
-    findFriend
+    findFollower,
 };

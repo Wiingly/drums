@@ -19,16 +19,16 @@ async function addWing(newWing){
 }
 
 
-// async function updatePlant(user_plant_id,updatedPlant){
-//     await db('user_plants')
-//         .where("user_plant_id", user_plant_id)
-//         .update(updatedPlant);
-//     return findUserWingsByWingsID(user_plant_id);
+// async function updateWing(wing_id, updatedWing) {
+//     await db('wings')
+//         .where("wing_id", wing_id)
+//         .update(updatedWing);
+//     return findUserWingsByWingsID(wing_id);
 // }
 
-// function del(user_plant_id){
-//     return db('user_plants')
-//         .where({user_plant_id})
+// function del(wing_id){
+//     return db('wings')
+//         .where({wing_id})
 //         .del();
 // }
 

@@ -1,12 +1,13 @@
 const router = require("express").Router();
 const restricted = require('../middleware/restricted.js');
+const { OnlyFollowOnce } = require('../middleware/middleware.js')
 const Follower = require("./model");
 
 router.get('/', restricted, async (req, res, next) => {
     const { user_id } = req.decodedToken;
-    console.log(user_id)
     try {
         const followerIds = await Follower.findById(user_id);
+        console.log(followerIds)
         const followers =  await Promise.all(followerIds.map(async follower => {
             const username = await Follower.findUsername(follower.user2_id);
             const wingStats = await Follower.totalWings(follower.user2_id);
@@ -17,7 +18,6 @@ router.get('/', restricted, async (req, res, next) => {
         }
         }))
         res.json(followers)
-        console.log(followers)
     }
     catch(err) {
         next(err)
@@ -25,7 +25,7 @@ router.get('/', restricted, async (req, res, next) => {
 })
 
 
-router.post('/', restricted, async (req, res, next) => {
+router.post('/', restricted, OnlyFollowOnce, async (req, res, next) => {
     const newFollow = { ...req.body, user1_id: req.decodedToken.user_id }
     try {
         const follow = await Follower.Follow(newFollow);
